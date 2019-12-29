@@ -16,5 +16,4 @@
         android:src="@drawable/daraz"
         android:foregroundGravity="center"/>
 
-
 </LinearLayout>
