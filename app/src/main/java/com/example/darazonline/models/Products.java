@@ -1,13 +1,16 @@
 package com.example.darazonline.models;
 
+import android.media.Image;
+import android.widget.ImageView;
+
 public class Products {
 
     private String name;
     private String price;
-    private String image;
+    private int image;
     private String description;
 
-    public Products(String name, String price, String image, String description) {
+    public Products(String name, String price, int image, String description) {
         this.name = name;
         this.price = price;
         this.image = image;
@@ -30,11 +33,11 @@ public class Products {
         this.price = price;
     }
 
-    public String getImage() {
+    public int getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(int image) {
         this.image = image;
     }
 
