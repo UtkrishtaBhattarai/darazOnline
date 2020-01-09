@@ -1,6 +1,7 @@
 package com.example.darazonline;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -23,47 +24,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class Dashboard extends AppCompatActivity {
 
     RecyclerView recyclerView;
-    List<Products> productsList = new ArrayList<>();
-    ProductsAdapter productsAdapter;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         recyclerView = findViewById(R.id.recyclerView);
-        ProductsAdapter productsAdapter = new ProductsAdapter(this, productsList);
-        recyclerView.setAdapter(productsAdapter);
 
-        Retrofit retrofit=new Retrofit.Builder().baseUrl(Url.base_url).
-                addConverterFactory(GsonConverterFactory.create()).build();
+        getProduct();
 
-        ProductAPI productAPI=retrofit.create(ProductAPI.class);
-        Call<List<Products>> listCall=productAPI.getAllEmployees();
+    }
 
-        listCall.enqueue(new Callback<List<Products>>() {
+    // product json
+    public void getProduct() {
+        ProductAPI retrofitProductAPI = Url.getRetrofit().create(ProductAPI.class);
+        Call<List<Products>> ProductsCall = retrofitProductAPI.getallProduct();
+        ProductsCall.enqueue(new Callback<List<Products>>() {
             @Override
             public void onResponse(Call<List<Products>> call, Response<List<Products>> response) {
-                if (!response.isSuccessful())
-                {
-                    Toast.makeText(Dashboard.this, "Error", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                productsList=response.body();
+                System.out.println("Product list " + response.body());
+                ProductsAdapter recyclerviewAdapter = new ProductsAdapter(getApplicationContext(), response.body());
+                RecyclerView.LayoutManager mlayoutManager = new GridLayoutManager(getApplicationContext(), 3);
+                recyclerView.setLayoutManager(mlayoutManager);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setAdapter(recyclerviewAdapter);
+                recyclerviewAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<List<Products>> call, Throwable t) {
 
-                Toast.makeText(Dashboard.this, "Error message dekha", Toast.LENGTH_SHORT).show();
             }
         });
-
-        productsList.add(new Products("Rajesh", "000", "jkaskjsa"));
-        productsList.add(new Products("Sanju","2288","jjsa"));
-
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

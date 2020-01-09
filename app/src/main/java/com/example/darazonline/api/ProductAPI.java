@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface ProductAPI {
 
-    @GET("employees")
-    Call<List<Products>> getAllEmployees();
+    @GET("daraz_products")
+    Call<List<Products>> getallProduct();
 }

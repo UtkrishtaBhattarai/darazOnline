@@ -6,65 +6,64 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.darazonline.models.Products;
-
-import org.w3c.dom.Text;
-
+import com.squareup.picasso.Picasso;
 import java.util.List;
 
-public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.ProductsViewHolder> {
+public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyViewHolder>{
 
-    Context mContext;
-    List<Products> productsList;
+    Context context;
+    List<Products> Productss;
 
-    public ProductsAdapter(Context mContext, List<Products> productsList) {
-        this.mContext = mContext;
-        this.productsList = productsList;
+    public ProductsAdapter(Context context, List<Products> Productss) {
+        this.context = context;
+        this.Productss = Productss;
     }
 
     @NonNull
     @Override
-    public ProductsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.activity_product, parent, false);
-        return new ProductsViewHolder(view);
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_product_recyclerview,parent,false);
+
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
-        final Products products=productsList.get(position);
-       // holder.imageView2.setImageResource(products.getImage());
-        holder.tvname.setText(products.getName());
-        holder.tvprice.setText(products.getPrice());
-        holder.description.setText(products.getDescription());
+        //// getting data according to position
+        final Products Products = Productss.get(position);
+
+        holder.txt_item_product_name.setText(Products.getProduct_name());
+        holder.txt_item_product_price.setText(Products.getProduct_price());
+       // holder.item_product_image.setTe(Products.getProduct_image());
+        // get Product Image
+        Picasso.get()
+                .load("http://www.piyushp.com.np/sport_fanatic/api/member/image/daraz_image/product/"+Products.getProduct_image())
+                .placeholder(R.drawable.ic_launcher_background)
+                .resize(220, 220)
+                .centerCrop()
+                .into(holder.item_product_image);
     }
 
     @Override
     public int getItemCount() {
-        return productsList.size();
+        return Productss.size();
     }
 
-    public class ProductsViewHolder extends RecyclerView.ViewHolder {
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
-        //ImageView imageView2;
-        TextView tvname;
-        TextView tvprice;
-        TextView description;
+        TextView txt_item_product_name,txt_item_product_price;
+        ImageView item_product_image;
 
-        public ProductsViewHolder(@NonNull View itemView) {
+        public MyViewHolder(View itemView) {
             super(itemView);
-            //imageView2=itemView.findViewById(R.id.imageView2);
-            tvname=itemView.findViewById(R.id.tvname);
-            tvprice=itemView.findViewById(R.id.tvprice1);
-            description=itemView.findViewById(R.id.tvdescription);
 
+            txt_item_product_name = itemView.findViewById(R.id.txtProductName);
+            txt_item_product_price = itemView.findViewById(R.id.txtPrice);
+            item_product_image = itemView.findViewById(R.id.imgProduct);
         }
     }
-}
-
-
+}    

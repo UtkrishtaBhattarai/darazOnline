@@ -1,6 +1,20 @@
 package com.example.darazonline.url;
 
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class Url {
 
-    public static final String base_url="http://dummy.restapiexample.com/api/v1 ";
-}
+        public static Retrofit retrofit = null;
+
+        public static Retrofit getRetrofit(){
+
+            if (retrofit == null){
+                retrofit = new Retrofit.Builder()
+                        .baseUrl("http://192.168.137.1:3000/")
+                        .addConverterFactory(GsonConverterFactory.create())
+                        .build();
+            }
+            return retrofit;
+        }
+    }
