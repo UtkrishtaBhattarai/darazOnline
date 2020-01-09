@@ -30,7 +30,6 @@ public class Dashboard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         recyclerView = findViewById(R.id.recyclerView);
-
         getProduct();
 
     }

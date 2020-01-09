@@ -40,6 +40,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.MyView
         holder.txt_item_product_price.setText(Products.getProduct_price());
        // holder.item_product_image.setTe(Products.getProduct_image());
         // get Product Image
+       // String img
         Picasso.get()
                 .load("http://www.piyushp.com.np/sport_fanatic/api/member/image/daraz_image/product/"+Products.getProduct_image())
                 .placeholder(R.drawable.ic_launcher_background)
