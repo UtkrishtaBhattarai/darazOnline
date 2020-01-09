@@ -10,10 +10,9 @@ public class Products {
     private int image;
     private String description;
 
-    public Products(String name, String price, int image, String description) {
+    public Products(String name, String price, String description) {
         this.name = name;
         this.price = price;
-        this.image = image;
         this.description = description;
     }
 

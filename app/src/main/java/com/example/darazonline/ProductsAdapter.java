@@ -38,7 +38,7 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
     public void onBindViewHolder(@NonNull ProductsViewHolder holder, int position) {
 
         final Products products=productsList.get(position);
-        //holder.imageView2.setImageResource(products.getImage());
+       // holder.imageView2.setImageResource(products.getImage());
         holder.tvname.setText(products.getName());
         holder.tvprice.setText(products.getPrice());
         holder.description.setText(products.getDescription());
@@ -51,16 +51,16 @@ public class ProductsAdapter extends RecyclerView.Adapter<ProductsAdapter.Produc
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView imageView2;
+        //ImageView imageView2;
         TextView tvname;
         TextView tvprice;
         TextView description;
 
         public ProductsViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView2=itemView.findViewById(R.id.imageView2);
+            //imageView2=itemView.findViewById(R.id.imageView2);
             tvname=itemView.findViewById(R.id.tvname);
-            tvprice=itemView.findViewById(R.id.tvprice);
+            tvprice=itemView.findViewById(R.id.tvprice1);
             description=itemView.findViewById(R.id.tvdescription);
 
         }
